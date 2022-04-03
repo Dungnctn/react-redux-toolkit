@@ -6,10 +6,13 @@ import PrivateRouter from './components/PrivateRouter';
 import Product from './features/product/Product';
 import AddCategory from './page/AdminManager/AddCategory';
 import AddProduct from './page/AdminManager/AddProduct';
+import AdminManager from './page/AdminManager/AdminManager';
 import CategoryManager from './page/AdminManager/CategoryManager';
+import MemberManager from './page/AdminManager/MemberManager';
 import ProductManager from './page/AdminManager/ProductManager';
 import UpdateCategory from './page/AdminManager/UpdateCategory';
 import UpdateProduct from './page/AdminManager/UpdateProduct';
+import Cart from './page/Cart';
 import Home from './page/Home';
 import AdminPage from './page/Layout/AdminPage';
 import WebsitePage from './page/Layout/WebsitePage';
@@ -31,6 +34,7 @@ function App() {
 
         <Route path='signup' element={<Signup />} />
         <Route path='signin' element={<Signin />} />
+        <Route path='cart' element={<Cart />} />
 
         <Route path='admin' element={<PrivateRouter><AdminPage /></PrivateRouter>} >
           <Route index element={<Navigate to={'dashboard'} />} />
@@ -45,6 +49,8 @@ function App() {
             <Route path='add' element={<AddCategory />} />
             <Route path=':id/edit' element={<UpdateCategory />} />
           </Route>
+          <Route path='adminManager' element={<AdminManager />} />
+          <Route path='memberManager' element={<MemberManager />} />
         </Route>
 
       </Routes>

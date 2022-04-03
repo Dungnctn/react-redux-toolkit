@@ -69,13 +69,10 @@ const ProductManager = () => {
         key: index + 1,
         name: item.name,
         image: <Image width={150} src={item.image}  />,
-        price: item.price,
+        price: item.price.toLocaleString('vi-VN'),
         category: item.category,
         edit: <NavLink to={`${item._id}/edit`}><Button type="primary" shape="round" icon={<DownloadOutlined />}> Update </Button></NavLink>,
         remove: <Button type="primary"  onClick={() => dispatch(deleteProduct(item._id))} danger shape="round" icon={<DeleteOutlined />} > Remove </Button>
-        
-        
-        // <Button danger onClick={() => onRemove(item._id, user, token)}>Remove</Button>
     }
   })
 

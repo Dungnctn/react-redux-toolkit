@@ -9,3 +9,8 @@ export const signinAPI = (data) => {
     const url = `signin`
     return instance.post(url, data)
 }
+
+export const getAllUser = () => {
+    const url = `listuser`
+    return instance.get(url);
+}

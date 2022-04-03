@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 const Nav = () => {
   return (
     <div>
-        <div className="max-w-7xl mx-auto bg-[#ffffff] ">
+        <div className="max-w-7xl mx-auto bg-[#ffffff]">
             <div className="inline-block float-left">
                 <img src="https://www.memestreasures.com/wp-content/uploads/2017/08/LV-logo.png" alt="" className="w-40"/>
             </div>

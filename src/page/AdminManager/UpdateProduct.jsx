@@ -40,11 +40,15 @@ const UpdateProduct = () => {
         <form onSubmit={handleSubmit(onsubmitUpdate)}>
             <div className="mb-3">
                 <label className="form-label">Name</label>
-                <input type="text" {...register("name")}  className="form-control"/>
+                <input type="text" {...register("name")}  placeholder='Name...'  className="form-control"/>
             </div>
             <div className="mb-3">
                 <label className="form-label">Price</label>
-                <input type="text" {...register("price")}  className="form-control"/>
+                <input type="text" {...register("price")}  placeholder='Price...' className="form-control"/>
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Image</label>
+                <input type="text" {...register("image")}  placeholder='Image http://...' className="form-control"/>
             </div>
             <div className="mb-3">
                 <label className="form-label">Category</label>
@@ -53,12 +57,11 @@ const UpdateProduct = () => {
                     {category?.map((item, index) => 
                         <option value={item._id} key={index}>{item.name}</option>
                     )}
-                </select>    
-                {/* <input type="hidden" {...register("category")}  className="form-control"/> */}
+                </select>
             </div>
             <div className="mb-3">
                 <label className="form-label">Description</label>
-                <input type="text" {...register("description")}  className="form-control"/>
+                <input type="text" {...register("description")}  placeholder='Description...' className="form-control"/>
             </div>
 
             <button className="btn btn-primary">Submit</button>

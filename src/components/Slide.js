@@ -2,7 +2,7 @@ import React from 'react'
 
 const Slide = () => {
   return (
-    <div>
+    <div className='mt-20'>
         <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
             <div className="carousel-inner">
                 <div className="carousel-item active">

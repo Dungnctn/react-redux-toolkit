@@ -1,3 +1,4 @@
+import { isAuthenticate } from '../auth/localUser'
 import {instance} from './instance'
 
 export const getAllCategory = () => {
@@ -11,16 +12,31 @@ export const getCategory = (id) => {
 }
 
 export const addCategory = (category) => {
-    const url = `/category`
-    return instance.post(url, category);
+    const {user, token} = isAuthenticate()
+    const url = `/category/${user._id}`
+    return instance.post(url, category, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
 }
 
 export const removeCategory = (id) => {
-    const url = `/category/${id}`
-    return instance.delete(url);
+    const {user, token} = isAuthenticate()
+    const url = `/category/${id}/${user._id}`
+    return instance.delete(url, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
 }
 
 export const updateCategory = (category) => {
-    const url = `/category/${category._id}`
-    return instance.put(url, category);
+    const {user, token} = isAuthenticate()
+    const url = `/category/${category._id}/${user._id}`
+    return instance.put(url, category, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
 }

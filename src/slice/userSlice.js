@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { signinAPI, signupAPI } from '../api/user';
+import { getAllUser, signinAPI, signupAPI } from '../api/user';
 
 
 const initialState = {
@@ -8,8 +8,22 @@ const initialState = {
     settings: {}
 };
 
-export const getAllUser = createAsyncThunk(
-    
+export const getAllUserAdmin = createAsyncThunk(
+    "user/getAllUserAdmin",
+    async () => {
+        const {data} = await getAllUser();
+        const checkRole = data.user.filter(item => item.role === 1)
+        return checkRole
+    }
+)
+
+export const getAllUserMember = createAsyncThunk(
+    "user/getAllUserMember",
+    async () => {
+        const {data} = await getAllUser();
+        const checkMember = data.user.filter(item => item.role === 0)
+        return checkMember
+    }
 )
 
 export const regist = createAsyncThunk(
@@ -39,6 +53,12 @@ const userSlice = createSlice({
         builder.addCase(login.fulfilled, (state, action) => {
             localStorage.setItem('userToken', JSON.stringify(action.payload));
             state.isAuthenticate = true;
+        })
+        builder.addCase(getAllUserAdmin.fulfilled, (state, action) => {
+            state.value = action.payload
+        })
+        builder.addCase(getAllUserMember.fulfilled, (state, action) => {
+            state.value = action.payload
         })
     }
     

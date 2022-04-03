@@ -12,6 +12,8 @@ import {
   ProfileOutlined,
   ShopOutlined,
   ShoppingCartOutlined,
+  UsergroupAddOutlined,
+  UserSwitchOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Breadcrumb, Avatar, Dropdown, Button, Badge } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
@@ -38,9 +40,14 @@ const AdminPage = () => {
             <Menu.Item key="1" icon={<PieChartOutlined />}>
                 <NavLink to={""} >Thống kê</NavLink>
             </Menu.Item>
-            <Menu.Item key="2" icon={<UserOutlined />}>
-                <NavLink to={'user'} >User</NavLink>
-            </Menu.Item>
+            <SubMenu key="sub3" icon={<UserOutlined />} title="User">
+              <Menu.Item key="sub4" icon={<UserSwitchOutlined />}>
+                  <NavLink to={'adminManager'} >Admin</NavLink>
+              </Menu.Item>
+              <Menu.Item key="sub5" icon={<UsergroupAddOutlined />} >
+                  <NavLink to={'memberManager'} >Member</NavLink>
+              </Menu.Item>
+            </SubMenu>
             <Menu.Item key="sub1" icon={<ProfileOutlined />}>
                 <NavLink to={'category'}>Category</NavLink>
             </Menu.Item>

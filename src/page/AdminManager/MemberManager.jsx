@@ -1,24 +1,27 @@
-import React from 'react'
-import { getAllUser } from '../../api/user';
-import { UserType } from '../../type/userType';
+import React, { useEffect } from 'react'
 import { Table } from 'antd';
 import 'antd/dist/antd.css';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllUserMember } from '../../slice/userSlice';
 
 
-const UserManager = () => {
+const MemberManager = () => {
 
-    // const Users = useSelector(state => state.)
+    const Users = useSelector(data => data.user.value);
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getAllUserMember())
+    }, [])
 
     const columns = [
         {
             title: '#',
             dataIndex: 'key',
-            width: 150,
+            width: 50,
         },
         {
-            title: 'Name',
+            title: 'Username',
             dataIndex: 'name',
             width: 150,
         },
@@ -32,11 +35,6 @@ const UserManager = () => {
             dataIndex: 'role',
             width: 150
         },
-        {
-            title: 'Edit',
-            dataIndex: 'edit',
-            width: 150
-        },
         ];
 
     const dataSource = Users.map((item, index) => {
@@ -44,8 +42,7 @@ const UserManager = () => {
             key: index + 1,
             name: item.username,
             email: item.email,
-            role: item.role,
-            edit: <NavLink to={`${item._id}`} >Cạp nhat</NavLink>
+            role: item.role == 0 ? 'Member' : ''
         }
     })
     return (
@@ -55,4 +52,4 @@ const UserManager = () => {
     )
 }
 
-export default UserManager
+export default MemberManager
