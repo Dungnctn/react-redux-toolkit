@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { get } from '../api/product';
+import { addToCart } from '../slice/cartSlice';
 
 const ProductDetail = () => {
-    const [products, setProducts] = useState()
-    const {id} = useParams()
+    const [products, setProducts] = useState();
+    const {id} = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     useEffect(() => {   
         const getPro = async () => {
             const {data} = await get(id);
@@ -12,23 +16,33 @@ const ProductDetail = () => {
         }
         getPro()
     }, [])
-    let cart = [];
-    // if(localStorage.getItem('cartProducts')){
-    //   cart = JSON.parse(localStorage.getItem('cartProducts'));
-    // }
-    const AddtoCart = () => {
-      console.log(products._id);
-        const checkId = cart?.find(item => item._id === products._id); 
-      console.log(checkId);
-      if(!checkId){
-        cart.push({...products, quantity: +1});
-      }else{
-        checkId.quantity += 1
-      }
-      localStorage.setItem("cartProducts", JSON.stringify(cart));
+
+    const AddtoCart = (product) => {
+      dispatch(addToCart(product));
+      navigate("/cart");
     }
+
   return (
-        <div>
+        <div className='mt-20'>
+          <ul className='ol bg-[#F1F1F1] max-w-full mt-20 mx-auto px-4 py-2 flex items-center space-x-2 sm:px-6 lg:max-w-full lg:px-8'>
+            <li>
+              <div class="flex items-center">
+                  <NavLink to={"/"} class="mr-2 text-sm font-medium text-gray-900">
+                  Trang chủ
+                  </NavLink>
+                  <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300">
+                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                  </svg>
+              </div>
+            </li>
+            <li>
+              <div class="flex items-center">
+                  <NavLink to={"/cart"} class="mr-2 text-sm font-medium text-gray-900">
+                    Chi tiết sản phẩm
+                  </NavLink>
+              </div>
+            </li>
+          </ul>
             {(products) ?
             <section className="w-full text-gray-700 body-font overflow-hidden bg-white">
             <div className="container px-5 py-24 mx-auto">
@@ -102,7 +116,7 @@ const ProductDetail = () => {
                   <div className="flex">
                     <span className="title-font font-medium text-2xl text-gray-900"></span>
                     <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-                      onClick={() => AddtoCart()}>ADD TO CART</button>
+                      onClick={() => AddtoCart(products)}>ADD TO CART</button>
                     <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                       <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
                         <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>

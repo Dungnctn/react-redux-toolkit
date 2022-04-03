@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-
+import "react-toastify/dist/ReactToastify.css";
 import './App.css';
 import PrivateRouter from './components/PrivateRouter';
 import Product from './features/product/Product';
@@ -18,12 +18,14 @@ import AdminPage from './page/Layout/AdminPage';
 import WebsitePage from './page/Layout/WebsitePage';
 import ProductDetail from './page/ProductDetail';
 import Signin from './page/Signin';
-import Signup from './page/Signup.jsx'
+import Signup from './page/Signup.jsx';
+import { ToastContainer } from 'react-toastify'
 // import Product from './features/product/Product';
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer />
       <Routes>
         <Route path='/' element={<WebsitePage />}>
           <Route path='/' element={<Home />} >
@@ -32,9 +34,9 @@ function App() {
           <Route path='productdetail/:id' element={<ProductDetail />} />
         </Route>
 
+          <Route path='cart' element={<Cart />} />
         <Route path='signup' element={<Signup />} />
         <Route path='signin' element={<Signin />} />
-        <Route path='cart' element={<Cart />} />
 
         <Route path='admin' element={<PrivateRouter><AdminPage /></PrivateRouter>} >
           <Route index element={<Navigate to={'dashboard'} />} />
