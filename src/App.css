@@ -215,3 +215,64 @@ button {
   margin-right: 0;
   margin-left: 24px;
 } */
+
+
+.btn-cart, .home{
+  font-size: 16px;
+  padding: 1em 3.3em;
+  transform: perspective(200px) rotateX(15deg);
+  color: white;
+  font-weight: 900;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(0deg, rgba(63,94,251,1) 0%, rgba(70,135,252,1) 100%);
+  box-shadow: rgba(63,94,251,0.2) 0px 40px 29px 0px;
+  will-change: transform;
+  transition: all 0.3s;
+  border-bottom: 2px solid rgba(70,135,252,1);
+ }
+ 
+ .btn-cart:hover {
+  transform: perspective(180px) rotateX(30deg) translateY(2px);
+ }
+ 
+ .btn-cart:active {
+  transform: perspective(170px) rotateX(36deg) translateY(5px);
+ }
+
+
+ /* From cssbuttons.io */
+.btnAddToCart {
+  font-size: 17px;
+  font-family: inherit;
+  font-weight: 700;
+  padding: 4px;
+  border-radius: 20px;
+  border: none;
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  background: linear-gradient(0deg, rgba(255,213,0,1) 0%, rgba(255,213,0,1) 47%, rgb(198, 4, 4) 47%, rgb(198, 4, 4) 100%);
+ }
+ 
+ .btnAddToCart .button-content {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 0.7em 1.5em;
+  padding-left: 1.2em;
+  border-radius: 16px;
+ }
+ 
+ .btnAddToCart svg {
+  width: 22px;
+  height: 22px;
+  margin-right: 6px;
+  color: #ff0000;
+  transition: transform 0.3s;
+ }
+ 
+ .btnAddToCart:hover svg {
+  transform: scale(1.2);
+ }
+ 
+ 

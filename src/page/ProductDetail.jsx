@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { get } from '../api/product';
+import { isAuthenticate } from '../auth/localUser';
 import { addToCart } from '../slice/cartSlice';
 
 const ProductDetail = () => {
     const [products, setProducts] = useState();
+    const {user}= isAuthenticate()
     const {id} = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -18,11 +20,18 @@ const ProductDetail = () => {
     }, [])
 
     const AddtoCart = (product) => {
-      dispatch(addToCart(product));
-      navigate("/cart");
+      if(!user){
+        alert("Bạn cần đăng nhập để thêm vào giỏ hàng")
+      }else{
+        dispatch(addToCart(product));
+        navigate("/cart");
+      }
+      
     }
 
   return (
+      <div>
+         
         <div className='mt-20'>
           <ul className='ol bg-[#F1F1F1] max-w-full mt-20 mx-auto px-4 py-2 flex items-center space-x-2 sm:px-6 lg:max-w-full lg:px-8'>
             <li>
@@ -45,12 +54,13 @@ const ProductDetail = () => {
           </ul>
             {(products) ?
             <section className="w-full text-gray-700 body-font overflow-hidden bg-white">
-            <div className="container px-5 py-24 mx-auto">
+            <div className="container px-5 py-10 mx-auto">
               <div className="lg:w-4/5 mx-auto flex flex-wrap">
                 <img alt="ecommerce" className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200 object-cover" src={products.image} />
                 <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
                   <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{products.name}</h1>
+                  <h1 className="text-xl title-font my-2 text-black-800 tracking-widest">PRICE: {products.price.toLocaleString('vn-VN')} <u>đ</u></h1>
                   <div className="flex mb-4">
                     <span className="flex items-center">
                       <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 text-red-500" viewBox="0 0 24 24">
@@ -115,12 +125,11 @@ const ProductDetail = () => {
                   </div>
                   <div className="flex">
                     <span className="title-font font-medium text-2xl text-gray-900"></span>
-                    <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-                      onClick={() => AddtoCart(products)}>ADD TO CART</button>
-                    <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                      <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
-                        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-                      </svg>
+                    <button className='btnAddToCart' onClick={() => AddtoCart(products)}>
+                      <span class="button-content">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0H24V24H0z" fill="none"></path><path d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228z" fill="currentColor"></path></svg>
+                          ADD TO CART
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -129,7 +138,8 @@ const ProductDetail = () => {
           </section>
 
             : <h3>Không có sản phẩm</h3>}
-    </div>
+        </div> 
+      </div>
   )
 }
 

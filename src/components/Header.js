@@ -1,12 +1,18 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom'
 import { isAuthenticate } from '../auth/localUser';
+import { removeLogout } from '../slice/cartSlice';
 
 const Header = () => {
+    const cart = useSelector(state => state.cart);
+    const dispatch = useDispatch()
     const {user} = isAuthenticate();
     const navigate = useNavigate()
     const logout = () => {
         localStorage.removeItem('userToken');
+        localStorage.removeItem('cartProducts');
+        dispatch(removeLogout());
         navigate('/')
     }
   return (

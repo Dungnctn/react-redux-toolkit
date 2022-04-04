@@ -20,6 +20,7 @@ import ProductDetail from './page/ProductDetail';
 import Signin from './page/Signin';
 import Signup from './page/Signup.jsx';
 import { ToastContainer } from 'react-toastify'
+import Checkout from './page/Checkout';
 // import Product from './features/product/Product';
 
 function App() {
@@ -34,7 +35,8 @@ function App() {
           <Route path='productdetail/:id' element={<ProductDetail />} />
         </Route>
 
-          <Route path='cart' element={<Cart />} />
+        <Route path='cart' element={<Cart />} />
+        <Route path='checkout' element={<Checkout />} />
         <Route path='signup' element={<Signup />} />
         <Route path='signin' element={<Signin />} />
 
