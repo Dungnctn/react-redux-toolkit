@@ -40,3 +40,8 @@ export const updateProduct = (product) => {
         }
     })
 }
+
+export const searchProduct = (text) => {
+    const url = `search?q=${text}`
+    return instance.get(url);
+}

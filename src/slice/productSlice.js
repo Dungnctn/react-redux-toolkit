@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { useParams } from "react-router-dom"
-import { add, get, getAll, removeProduct, updateProduct } from "../api/product"
+import { add, get, getAll, removeProduct, searchProduct, updateProduct } from "../api/product"
 
 export const getProduct = createAsyncThunk(
     "product/getProduct",   //tên hành động
@@ -37,6 +37,14 @@ export const deleteProduct = createAsyncThunk(
     }
 )
 
+export const onSearchProducts = createAsyncThunk(
+    "product/searchProduct",
+    async ({text}) => {
+        const {data} = await searchProduct(text);
+        return data
+    }
+)
+
 
 const productSlice = createSlice({
     name: 'product',
@@ -60,6 +68,10 @@ const productSlice = createSlice({
 
         builder.addCase(editProduct.fulfilled, (state, action) => {
             state.value.push(action.payload);
+        })
+
+        builder.addCase(onSearchProducts.fulfilled, (state, action) => {
+            state.value = action.payload
         })
     }
 })

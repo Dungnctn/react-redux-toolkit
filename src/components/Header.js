@@ -1,11 +1,14 @@
 import React from 'react'
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom'
 import { isAuthenticate } from '../auth/localUser';
 import { removeLogout } from '../slice/cartSlice';
+import { onSearchProducts } from '../slice/productSlice';
 
 const Header = () => {
     const cart = useSelector(state => state.cart);
+    const {register, handleSubmit} = useForm()
     const dispatch = useDispatch()
     const {user} = isAuthenticate();
     const navigate = useNavigate()
@@ -14,6 +17,9 @@ const Header = () => {
         localStorage.removeItem('cartProducts');
         dispatch(removeLogout());
         navigate('/')
+    }
+    const onSearch = (text) => {
+        dispatch(onSearchProducts(text));
     }
   return (
     <header className="">
@@ -30,8 +36,8 @@ const Header = () => {
                 
                     <div className='account grid grid-cols-2 mx-auto'>
                         <div  className='search'>
-                            <form action="" className="search-box">
-                                    <input type="text" className="search-form" required placeholder="Nhập từ khóa" />
+                            <form action="" className="search-box" onSubmit={handleSubmit(onSearch)}>
+                                    <input {...register("text")} className="search-form" required placeholder="Nhập từ khóa" />
                                     <button className="btn-search" >
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
