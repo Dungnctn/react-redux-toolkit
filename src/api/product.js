@@ -45,3 +45,8 @@ export const searchProduct = (text) => {
     const url = `search?q=${text}`
     return instance.get(url);
 }
+
+export const sortProduct = (valueSort) => {
+    const url = `sort?sort=${valueSort}&limit=8`
+    return instance.get(url);
+}

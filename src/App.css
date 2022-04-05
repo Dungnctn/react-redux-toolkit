@@ -275,4 +275,10 @@ button {
   transform: scale(1.2);
  }
  
- 
+ .user:hover .abc{
+  display: inline-block;
+}
+
+.sort:hover .sort_down{
+  display: inline-block;
+}

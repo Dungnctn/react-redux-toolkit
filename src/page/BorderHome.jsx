@@ -1,7 +1,14 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
+import { Button } from 'antd'
+import { onSortProduct } from '../slice/productSlice'
 
 const BorderHome = () => {
+  const dispatch = useDispatch();
+  const hanldeSortProduct = (valueSort) => {
+    dispatch(onSortProduct(valueSort));
+  }
   return (
     <div>
         <div>
@@ -25,23 +32,23 @@ const BorderHome = () => {
                     </button>
                   </div>
       
-                  <div className="sort_down hidden origin-top-right absolute right-0 mt-1 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1}>
+                  <div className="sort_down hidden origin-top-right absolute right-0 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1}>
                     <div className="py-1" role="none">
-                      <NavLink to={'productNew'} className="font-medium text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id="menu-item-0">
+                      <Button className="font-medium text-gray-900 w-full block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id="menu-item-0">
                         Hàng mới
-                      </NavLink>
+                      </Button>
       
-                      <NavLink to={'ProductPopur'} className="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id="menu-item-2">
+                      <Button className="text-gray-500 block px-4 py-2 w-full text-sm" role="menuitem" tabIndex={-1} id="menu-item-2">
                         Hàng bán chạy
-                      </NavLink>
+                      </Button>
       
-                      <NavLink to={'short'} className="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id="menu-item-3">
+                      <Button onClick={() => hanldeSortProduct(1)} className="text-gray-500 w-full block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id="menu-item-3">
                         Giá: Thấp đến cao
-                      </NavLink>
+                      </Button>
       
-                      <NavLink to={'height'} className="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id="menu-item-4">
+                      <Button onClick={() => hanldeSortProduct(-1)} className="text-gray-500 w-full block px-4 py-2 text-sm" role="menuitem" tabIndex={-1} id="menu-item-4">
                         Giá: Cao đến thấp
-                      </NavLink>
+                      </Button>
                     </div>
                   </div>
                 </div>
