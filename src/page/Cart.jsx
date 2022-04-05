@@ -50,11 +50,13 @@ const Cart = () => {
     if(user && cart.cartItems.length === 0){
       return <div>
         <Header />
-        <div><h1 className='mt-20 text-lg mx-auto'>Chưa có sản phẩm trong giỏ hàng</h1></div>
-        <button className='button mx-auto'>
-          <NavLink to={'/'}><span class='span'>HOME</span></NavLink>
-          <div class="liquid"></div>
-      </button>
+        <div>
+          <img src="https://fptshop.com.vn/cart/Content/Desktop/images/empty-cart.png" alt="Cart" className='mx-auto' />
+          <h1 className='mt-10 text-lg mx-auto'>Chưa có sản phẩm trong giỏ hàng</h1></div>
+          <button className='button mx-auto'>
+            <NavLink to={'/'}><span class='span'>HOME</span></NavLink>
+            <div class="liquid"></div>
+        </button>
       </div>
     }else{
       return (

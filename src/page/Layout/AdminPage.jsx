@@ -26,7 +26,7 @@ const AdminPage = () => {
         console.log('click', JSON.parse(localStorage.getItem("user")));
       }
       const menu = (
-        <Menu onClick={handleMenuClick}>
+        <Menu onClick={handleMenuClick} style={{float: "right"}}>
           <Menu.Item key="1"><NavLink to={'/'}>Trang chủ</NavLink></Menu.Item>
           <Menu.Item key="1">Cập nhật Admin</Menu.Item>
           <Menu.Item key="2"><Button onClick={() => localStorage.removeItem("userToken")}><NavLink to={'/'}>Dang xuat</NavLink></Button></Menu.Item>
@@ -60,23 +60,23 @@ const AdminPage = () => {
         </Menu>
         </Sider>
         <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }} >
-        <Dropdown overlay={menu}>
-          <span className="avatar-item" style={{float: 'right', marginRight: '30px'}}>
-            <Badge count={1}>
-              <Avatar shape="square" icon={<UserOutlined />} />
-            </Badge>
-          </span>
-        </Dropdown>
-        </Header>
-        <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-            </Breadcrumb>
-            <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-                <Outlet />
-            </div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>Dev: Nguyễn Chí Dũng</Footer>
+          <Header className="site-layout-background" style={{ padding: 0, float: "right" }} >
+          <Dropdown overlay={menu} >
+            <span className="avatar-item" style={{marginRight: '30px',}}>
+              <Badge count={1}>
+                <Avatar shape="square" icon={<UserOutlined />} />
+              </Badge>
+            </span>
+          </Dropdown>
+          </Header>
+          <Content style={{ margin: '0 16px' }}>
+              <Breadcrumb style={{ margin: '16px 0' }}>
+              </Breadcrumb>
+              <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+                  <Outlet />
+              </div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>Dev: Nguyễn Chí Dũng</Footer>
         </Layout>
     </Layout>
   )
