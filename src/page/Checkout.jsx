@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {isAuthenticate} from '../auth/localUser'
 import Header from '../components/Header';
-import Nav from '../components/Nav';
 import cartSlice, { getTotal, removeCart } from '../slice/cartSlice';
 
 const Checkout = () => {

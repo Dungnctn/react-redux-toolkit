@@ -3,12 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 import 'antd/dist/antd.css';
 // import { Layout, Menu, Breadcrumb } from 'antd';
 import {
-  DesktopOutlined,
   PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  SettingOutlined,
-  LoginOutlined,
   ProfileOutlined,
   ShopOutlined,
   ShoppingCartOutlined,
@@ -16,7 +11,7 @@ import {
   UserSwitchOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Breadcrumb, Avatar, Dropdown, Button, Badge } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;

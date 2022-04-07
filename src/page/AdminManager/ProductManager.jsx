@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getAllCategory } from '../../api/category';
-import { removeProduct } from '../../api/product';
 import { deleteProduct, getProduct } from '../../slice/productSlice';
 
 const ProductManager = () => {
@@ -18,12 +17,12 @@ const ProductManager = () => {
     }
     sendCate()
   }, [])
-  // const filterCate = (id) => {
-  //   const data = cate?.filter(it => it._id === id);
-  //   return data
 
-  // }
-  // console.log(filterCate('6239833cd76dbb62d0a0bf81'));
+  const filterCate = (id) => {
+    const data = cate?.find(it => it._id === id);
+    return data?.name
+  }
+  
   useEffect(() => {
     dispatch(getProduct());
   }, [])
@@ -70,7 +69,7 @@ const ProductManager = () => {
         name: item.name,
         image: <Image width={150} src={item.image}  />,
         price: item.price.toLocaleString('vi-VN'),
-        category: item.category,
+        category: filterCate(item.category),
         edit: <NavLink to={`${item._id}/edit`}><Button type="primary" shape="round" icon={<DownloadOutlined />}> Update </Button></NavLink>,
         remove: <Button type="primary"  onClick={() => dispatch(deleteProduct(item._id))} danger shape="round" icon={<DeleteOutlined />} > Remove </Button>
     }
