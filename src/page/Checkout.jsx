@@ -1,21 +1,37 @@
 import React, { useEffect } from 'react'
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {isAuthenticate} from '../auth/localUser'
 import Header from '../components/Header';
-import cartSlice, { getTotal, removeCart } from '../slice/cartSlice';
+import { getTotal, removeCart } from '../slice/cartSlice';
+import { addToOrder } from '../slice/checkout';
 
 const Checkout = () => {
   const cart = useSelector(state => state.cart);
+  const checkout = useSelector(state => state.checkout.value)
   const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm()
   const {user} = isAuthenticate();
-
   useEffect(() => {
     dispatch(getTotal())
   }, [cart])
 
   const handleRemove = (cartItem) => {
     dispatch(removeCart(cartItem));
+  }
+
+  const onSubmit = async (data) => {
+    const totalPrice =  cart.cartTotal
+    const info = { firstName: data.firstName, lastName: data.lastName, email: data.email }
+    const shipAddress = {address: data.address, city: data.city, postalCode: data.postalCode }
+    const notes = data.notes
+    const orderItems = cart.cartItems
+    const users = user._id
+    const order = {info,shipAddress, notes, totalPrice, orderItems, users}
+
+    dispatch(addToOrder(order));
+    window.alert("Dat hang thanh cong")
   }
 
   return (
@@ -74,17 +90,17 @@ const Checkout = () => {
                 <div class="flex flex-col md:w-full">
                     <h2 class="mb-4 font-bold md:text-xl text-heading ">Địa chỉ giao hàng
                     </h2>
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <div class="">
                           <div class="space-x-0 lg:flex lg:space-x-4">
                               <div class="w-full lg:w-1/2">
                                   <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">Tên Đệm</label>
-                                  <input name="firstName" type="text" placeholder="First Name" required
+                                  <input name="firstName" type="text" {...register('firstName')} placeholder="First Name" required
                                       class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"/>
                               </div>
                               <div class="w-full lg:w-1/2 ">
                                   <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">Họ Tên</label>
-                                  <input name="Last Name" type="text" placeholder="Last Name"
+                                  <input name="Last Name" type="text" placeholder="Last Name" {...register("lastName")}
                                       class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"/>
                               </div>
                           </div>
@@ -92,7 +108,7 @@ const Checkout = () => {
                               <div class="w-full">
                                   <label for="Email"
                                       class="block mb-3 text-sm font-semibold text-gray-500">Email</label>
-                                  <input name="Last Name" type="text" placeholder="Email" required
+                                  <input name="Last Name" type="text" placeholder="Email" required {...register("email")}
                                       class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"/>
                               </div>
                           </div>
@@ -100,21 +116,20 @@ const Checkout = () => {
                               <div class="w-full">
                                   <label for="Address"
                                       class="block mb-3 text-sm font-semibold text-gray-500">Địa Chỉ</label>
-                                  <textarea required
-                                      class="w-full px-4 py-3 text-xs border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                      name="Address" cols="20" rows="4" placeholder="Address"></textarea>
+                                  <input name="Last Name" type="text" placeholder="Address" required {...register("address")}
+                                  class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"/>
                               </div>
                           </div>
                           <div class="space-x-0 lg:flex lg:space-x-4">
                               <div class="w-full lg:w-1/2">
                                   <label for="city"
                                       class="block mb-3 text-sm font-semibold text-gray-500">Thành Phố</label>
-                                  <input name="city" type="text" placeholder="City" required
+                                  <input name="city" type="text" placeholder="City" required {...register("city")}
                                       class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
                               </div>
                               <div class="w-full lg:w-1/2 ">
                                   <label for="postcode" class="block mb-3 text-sm font-semibold text-gray-500">Mã Bưu Điện</label>
-                                  <input name="postcode" type="text" placeholder="Post Code"
+                                  <input name="postcode" type="text" placeholder="Post Code" {...register("postalCode")}
                                       class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"/>
                               </div>
                           </div>
@@ -126,7 +141,7 @@ const Checkout = () => {
                           </div>
                           <div class="relative pt-3 xl:pt-6"><label for="note"
                                   class="block mb-3 text-sm font-semibold text-gray-500"> Ghi chú
-                                  (Không bắt buộc)</label><textarea name="note"
+                                  (Không bắt buộc)</label><textarea name="note" {...register("notes")}
                                   class="flex items-center w-full px-4 py-3 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-600"
                                   rows="4" placeholder="Notes for delivery"></textarea>
                           </div>
@@ -173,16 +188,16 @@ const Checkout = () => {
                         </div>
                         <div
                             class="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                            Tổng Phụ:<span class="ml-2">{cart.cartTotalAmout.toLocaleString('vn-VN')} <u>đ</u></span></div>
+                            Tổng Phụ:<span class="ml-2">{cart.cartTotalAmout.toLocaleString('vi', {style : 'currency', currency : 'VND'})} </span></div>
                         <div
                             class="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                            Thuế (3%):<span class="ml-2">{(cart.cartTotalAmout * 0.03).toLocaleString('vn-VN')} <u>đ</u></span></div>
+                            Thuế (3%):<span class="ml-2">{(cart.cartThue).toLocaleString('vi', {style : 'currency', currency : 'VND'})} </span></div>
                         <div
                             class="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                            Vận chuyển:<span class="ml-2">{(cart.cartTotalAmout * 0.005).toLocaleString('vn-VN')} <u>đ</u></span></div>
+                            Vận chuyển:<span class="ml-2">{(cart.cartShip).toLocaleString('vi', {style : 'currency', currency : 'VND'})} </span></div>
                         <div
                             class="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                            Tổng:<span class="ml-2"> {(cart.cartTotalAmout + (cart.cartTotalAmout * 0.03) + (cart.cartTotalAmout * 0.005)).toLocaleString('vn-VN')} <u>đ</u> </span></div>
+                            Tổng:<span class="ml-2"> {(cart.cartTotal).toLocaleString('vi', {style : 'currency', currency : 'VND'})} </span></div>
                     </div>
                 </div>
             </div>

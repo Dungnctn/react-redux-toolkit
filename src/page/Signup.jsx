@@ -11,7 +11,6 @@ const SignupUser = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const onsubmit = async (dataForm) => {
-        console.log("dataForm", dataForm);
         await dispatch(regist(dataForm));
         navigate("/signin");
     }

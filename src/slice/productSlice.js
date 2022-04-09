@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { useParams } from "react-router-dom"
 import { add, get, getAll, removeProduct, searchProduct, updateProduct, sortProduct } from "../api/product"
 
 export const getProduct = createAsyncThunk(

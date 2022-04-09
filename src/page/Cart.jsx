@@ -204,7 +204,7 @@ const Cart = () => {
                             Thuế (3%):
                           </div>
                           <div className="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                            {(cart.cartTotalAmout * 0.03).toLocaleString("vn-VN")} <u>đ</u>
+                            {(cart.cartThue).toLocaleString('vi', {style : 'currency', currency : 'VND'})}
                           </div>
                         </div>
                         <div className="flex justify-between pt-4 border-b">
@@ -212,7 +212,7 @@ const Cart = () => {
                             Phí vận chuyển:
                           </div>
                           <div className="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                            {(cart.cartTotalAmout * 0.005).toLocaleString("vn-VN")} <u>đ</u>
+                            {(cart.cartShip).toLocaleString('vi', {style : 'currency', currency : 'VND'})}
                           </div>
                         </div>
                         <div className="flex justify-between pt-4 border-b">
@@ -220,7 +220,7 @@ const Cart = () => {
                             Tổng:
                           </div>
                           <div className="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                            {((cart.cartTotalAmout) + (cart.cartTotalAmout * 0.03) + (cart.cartTotalAmout * 0.005)).toLocaleString("vn-VN")} <u>đ</u>
+                            {(cart.cartTotal).toLocaleString('vi', {style : 'currency', currency : 'VND'})}
                           </div>
                         </div>
                         <NavLink to="/checkout">
