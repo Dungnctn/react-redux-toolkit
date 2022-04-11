@@ -50,3 +50,8 @@ export const sortProduct = (valueSort) => {
     const url = `sort?sort=${valueSort}&limit=8`
     return instance.get(url);
 }
+
+export const categoryProducts = (id) => {
+    const url = `category/product/${id}`
+    return instance.get(url);
+}

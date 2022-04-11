@@ -1,11 +1,27 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
 import { Button } from 'antd'
-import { onSortProduct } from '../slice/productSlice'
+import { cateProducts, onSortProduct } from '../slice/productSlice'
+import { getAllCate } from '../slice/categorySlice'
 
 const BorderHome = () => {
+  
+  // const [category, setCate] = useState();
+  const category = useSelector(state => state.category.value);
   const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getAllCate())
+  }, [])
+
+  
+
+  const handleCateProducts = (idCate) => {
+    console.log(idCate);
+    dispatch(cateProducts(idCate));
+  }
+
   const hanldeSortProduct = (valueSort) => {
     dispatch(onSortProduct(valueSort));
   }
@@ -60,7 +76,7 @@ const BorderHome = () => {
               <h2 id="products-heading" className="sr-only">Products</h2>
       
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
-                <form className="hidden lg:block">
+                <div className="hidden lg:block">
                   <div className="border-b border-gray-200 py-6">
                       <h3 className="-my-3 flow-root">
                         <button type="button" className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-1" aria-expanded="false">
@@ -79,12 +95,15 @@ const BorderHome = () => {
                       </h3>
                       <div className="pt-6" id="filter-section-1">
                         <div className="space-y-4">
-                          <div className="flex items-center">
-                            <NavLink to="" className="ml-3 text-sm text-black-800">
-                              Hàng mới
-                            </NavLink>
+                        { category?.map((item) => (
+                          <div className="flex items-center" key={item._id}>
+                            {/* <NavLink to={''} className="ml-3 text-sm text-black-800"> */}
+                              <button onClick={() => handleCateProducts(item._id)} className="ml-3 text-sm text-black-800">
+                                {item.name}
+                              </button> 
+                            {/* </NavLink> */}
                           </div>
-        
+                        )) }
                         </div>
                       </div>
                     </div>
@@ -205,7 +224,7 @@ const BorderHome = () => {
                       </div>
                     </div>
                   </div>
-                </form>
+                </div>
       
       
                 <div className="lg:col-span-3">

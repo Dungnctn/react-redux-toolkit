@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { add, get, getAll, removeProduct, searchProduct, updateProduct, sortProduct } from "../api/product"
+import { add, get, getAll, removeProduct, searchProduct, updateProduct, sortProduct, categoryProducts } from "../api/product"
 
 export const getProduct = createAsyncThunk(
     "product/getProduct",   //tên hành động
@@ -33,6 +33,14 @@ export const deleteProduct = createAsyncThunk(
             const {data} = await removeProduct(id);
             return data
         }
+    }
+)
+
+export const cateProducts = createAsyncThunk(
+    "product/categoryProducts",
+    async (idCate) => {
+        const {data} = await categoryProducts(idCate);
+        return data
     }
 )
 
@@ -74,6 +82,10 @@ const productSlice = createSlice({
 
         builder.addCase(editProduct.fulfilled, (state, action) => {
             state.value.push(action.payload);
+        })
+
+        builder.addCase(cateProducts.fulfilled, (state, action) => {
+            state.value = action.payload
         })
 
         builder.addCase(onSearchProducts.fulfilled, (state, action) => {

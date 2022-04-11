@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {isAuthenticate} from '../auth/localUser'
 import Header from '../components/Header';
 import { getTotal, removeCart } from '../slice/cartSlice';
@@ -9,8 +9,8 @@ import { addToOrder } from '../slice/checkout';
 
 const Checkout = () => {
   const cart = useSelector(state => state.cart);
-  const checkout = useSelector(state => state.checkout.value)
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { register, handleSubmit } = useForm()
   const {user} = isAuthenticate();
   useEffect(() => {
@@ -23,15 +23,15 @@ const Checkout = () => {
 
   const onSubmit = async (data) => {
     const totalPrice =  cart.cartTotal
-    const info = { firstName: data.firstName, lastName: data.lastName, email: data.email }
+    const info = { firstName: data.firstName, lastName: data.lastName, email: data.email, phone: data.phone }
     const shipAddress = {address: data.address, city: data.city, postalCode: data.postalCode }
     const notes = data.notes
     const orderItems = cart.cartItems
     const users = user._id
     const order = {info,shipAddress, notes, totalPrice, orderItems, users}
-
+    localStorage.getItem("order", JSON.stringify(order));
     dispatch(addToOrder(order));
-    window.alert("Dat hang thanh cong")
+      navigate("/ordersuccess")
   }
 
   return (
@@ -108,7 +108,15 @@ const Checkout = () => {
                               <div class="w-full">
                                   <label for="Email"
                                       class="block mb-3 text-sm font-semibold text-gray-500">Email</label>
-                                  <input name="Last Name" type="text" placeholder="Email" required {...register("email")}
+                                  <input name="email" type="text" placeholder="Email" required {...register("email")}
+                                      class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"/>
+                              </div>
+                          </div>
+                          <div class="mt-4">
+                              <div class="w-full">
+                                  <label for="Email"
+                                      class="block mb-3 text-sm font-semibold text-gray-500">Số điện thoại</label>
+                                  <input name="phone" type="number" placeholder="Email" required {...register("phone")}
                                       class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"/>
                               </div>
                           </div>
