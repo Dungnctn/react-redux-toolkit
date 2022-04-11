@@ -40,7 +40,7 @@ export const cateProducts = createAsyncThunk(
     "product/categoryProducts",
     async (idCate) => {
         const {data} = await categoryProducts(idCate);
-        return data
+        return data.product
     }
 )
 

@@ -15,10 +15,10 @@ const BorderHome = () => {
     dispatch(getAllCate())
   }, [])
 
-  
-
   const handleCateProducts = (idCate) => {
     console.log(idCate);
+    // const data = cateProducts(idCate)
+    // console.log(data);
     dispatch(cateProducts(idCate));
   }
 
