@@ -22,7 +22,7 @@ const Product = () => {
                                 <h3 className="mt-4 text-sm text-gray-700">
                                     {post.name}
                                 </h3>
-                                <p className="mt-1 text-sm text-gray-500">{post.price.toLocaleString('vi-VN') + 'VND'}</p>
+                                <p className="mt-1 text-sm text-gray-500">{post.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</p>
                                 {/* <p className="text-sm font-medium text-gray-900 line-through text-[#ccc]">{post.sale}</p> */}
                             </NavLink>
                         )}

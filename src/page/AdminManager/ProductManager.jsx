@@ -10,7 +10,7 @@ import { deleteProduct, getProduct } from '../../slice/productSlice';
 const ProductManager = () => {
   const [cate, setCate] = useState();
   const products = useSelector((state) => state.product.value)
-  console.log(products);
+  
   const dispatch = useDispatch();
   useEffect(() => {
     const sendCate = async () => {
@@ -70,7 +70,7 @@ const ProductManager = () => {
         key: index + 1,
         name: item.name,
         image: <Image width={150} src={item.image}  />,
-        price: item.price.toLocaleString('vi-VN'),
+        price: item.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}),
         category: filterCate(item.category),
         edit: <NavLink to={`${item._id}/edit`}><Button type="primary" shape="round" icon={<DownloadOutlined />}> Update </Button></NavLink>,
         remove: <Button type="primary"  onClick={() => dispatch(deleteProduct(item._id))} danger shape="round" icon={<DeleteOutlined />} > Remove </Button>

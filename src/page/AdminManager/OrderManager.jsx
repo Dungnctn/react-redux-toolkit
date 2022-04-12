@@ -3,16 +3,15 @@ import { Button, Table, Image } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getAllCategory } from '../../api/category';
 import { getAllOrder } from '../../slice/orderSlice';
-import { deleteProduct, getProduct } from '../../slice/productSlice';
 
 const OrderManager = () => {
     const dispatch = useDispatch()
     const orders = useSelector(state => state.order.value);
-
+  console.log(orders);
     useEffect(() => {
         dispatch(getAllOrder())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const colums = [
@@ -56,7 +55,7 @@ const OrderManager = () => {
     const dataSource = orders?.map((item, index) => {
         return {
             key: index + 1,
-            name: item.info.firstName + item.info.lastName,
+            name: item.info.firstName + ' ' + item.info.lastName,
             email: item.info.email,
             phone: item.info.phone,
             status: item?.status === 1 ? <div> <span className="bg-green-500 text-white p-2 rounded-lg">Đã gửi đơn</span></div> 
