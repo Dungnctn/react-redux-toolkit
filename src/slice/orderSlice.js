@@ -1,10 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { getAllOrderProducts } from '../api/order'
+import { getAllOrderProducts, getOrderDetail } from '../api/order'
 
 export const getAllOrder = createAsyncThunk(
     "order/getAllOrder",
     async () => {
         const {data} = await getAllOrderProducts()
+        return data
+    }
+)
+
+export const orderDetail = createAsyncThunk(
+    "order/orderDetail",
+    async (id) => {
+        const {data} = await getOrderDetail(id)
         return data
     }
 )
@@ -19,6 +27,9 @@ const orderSlice = createSlice({
             state.value = action.payload
         })
 
+        builder.addCase(orderDetail.fulfilled, (state, action) => {
+            state.value = action.payload
+        })
 
     }
 })
