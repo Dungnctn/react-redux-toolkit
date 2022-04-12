@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { DeleteOutlined, DownloadOutlined } from '@ant-design/icons';
 import { Button, Table, Image } from 'antd';
 import { useEffect, useState } from 'react';
@@ -9,6 +10,7 @@ import { deleteProduct, getProduct } from '../../slice/productSlice';
 const ProductManager = () => {
   const [cate, setCate] = useState();
   const products = useSelector((state) => state.product.value)
+  console.log(products);
   const dispatch = useDispatch();
   useEffect(() => {
     const sendCate = async () => {

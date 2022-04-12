@@ -22,6 +22,8 @@ import Signup from './page/Signup.jsx';
 import { ToastContainer } from 'react-toastify'
 import Checkout from './page/Checkout';
 import SuccessOrder from './page/SuccessOrder';
+import OrderManager from './page/AdminManager/OrderManager';
+import OrderDetail from './page/AdminManager/OrderDetail';
 // import Product from './features/product/Product';
 
 function App() {
@@ -54,6 +56,10 @@ function App() {
             <Route index element={<CategoryManager />} />
             <Route path='add' element={<AddCategory />} />
             <Route path=':id/edit' element={<UpdateCategory />} />
+          </Route>
+          <Route path='order' >
+            <Route index element={<OrderManager />} />
+            <Route path=':id/detail' element={<OrderDetail />} />
           </Route>
           <Route path='adminManager' element={<AdminManager />} />
           <Route path='memberManager' element={<MemberManager />} />

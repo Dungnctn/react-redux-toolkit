@@ -50,7 +50,7 @@ const AdminPage = () => {
                 <NavLink to={'product'}>Product</NavLink>
             </Menu.Item>
             <Menu.Item key="9" icon={<ShoppingCartOutlined />}>
-                <NavLink to={'cart'}>Cart</NavLink>
+                <NavLink to={'order'}>Order</NavLink>
             </Menu.Item>
         </Menu>
         </Sider>
